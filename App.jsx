@@ -10,6 +10,7 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 import Home from "./src/BottomTab/Home";
 import Profile from "./src/BottomTab/Profile";
 import Explore from "./src/BottomTab/Explore";
+import Create from "./src/BottomTab/Create";
 
 import Detail from "./src/Stack/Detail";
 
@@ -18,7 +19,17 @@ const Stack = createStackNavigator();
 
 function TabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      shifting={true}
+      activeColor="black"
+      inactiveColor="black"
+      barStyle={{
+        backgroundColor: "transparent",
+        height: 65,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={StackNavigator}
@@ -39,6 +50,15 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
+        name="Create"
+        component={Create}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="plus" color={color} size={22} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
@@ -54,7 +74,13 @@ function TabNavigator() {
 function StackNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="HomeScreen" component={Home} />
+      <Stack.Screen
+        name="HomeScreen"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="Detail" component={Detail} />
     </Stack.Navigator>
   );
