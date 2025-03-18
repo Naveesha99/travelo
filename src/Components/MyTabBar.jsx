@@ -14,9 +14,9 @@ function MyTabBar({ state, descriptors, navigation }) {
         right: 0,
         flexDirection: "row",
         backgroundColor: "#cbebf4",
-        height: 70,
+        height: 60,
         padding: 8,
-        margin: 8,
+        margin: 15,
         borderRadius: 50,
       }}
     >
