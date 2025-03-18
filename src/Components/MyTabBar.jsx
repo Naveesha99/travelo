@@ -13,10 +13,10 @@ function MyTabBar({ state, descriptors, navigation }) {
         left: 0,
         right: 0,
         flexDirection: "row",
-        backgroundColor: "#3B4948",
-        height: 70,
+        backgroundColor: "#cbebf4",
+        height: 60,
         padding: 8,
-        margin: 8,
+        margin: 15,
         borderRadius: 50,
       }}
     >
@@ -53,7 +53,7 @@ function MyTabBar({ state, descriptors, navigation }) {
         // Get the icon from options
         const icon = options.tabBarIcon
           ? options.tabBarIcon({
-              color: isFocused ? "#07dfd4" : "#94cbeb",
+              color: isFocused ? "#07dfd4" : "#343434",
               size: 24,
             })
           : null;
