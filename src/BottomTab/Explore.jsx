@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   Dimensions,
@@ -45,7 +44,7 @@ const locations = [
   },
 ];
 
-const Explore = (navigate) => {
+const Explore = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
