@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React from "react";
 import { Feather, FontAwesome5 } from "@expo/vector-icons";
+import PropTypes from "prop-types";
 
 const { width } = Dimensions.get("window");
 const postWidth = width * 0.95;
@@ -27,6 +28,27 @@ const Post = ({ icon, image, name, caption, likes, comments }) => {
       </View>
     </View>
   );
+};
+
+Post.propTypes = {
+  // For static image imports (which are numbers in React Native)
+  icon: PropTypes.oneOfType([
+    PropTypes.number, // Static resources (require/import)
+    PropTypes.shape({
+      // URI objects
+      uri: PropTypes.string.isRequired,
+    }),
+  ]).isRequired,
+  image: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({
+      uri: PropTypes.string.isRequired,
+    }),
+  ]).isRequired,
+  name: PropTypes.string.isRequired,
+  caption: PropTypes.string.isRequired,
+  likes: PropTypes.number.isRequired,
+  comments: PropTypes.number.isRequired,
 };
 
 export default Post;

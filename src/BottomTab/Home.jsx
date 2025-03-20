@@ -1,17 +1,13 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
 import Feed from "../Components/Feed";
+import images from "../Assets/images";
 
 const Home = () => {
-  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Image
-          source={require("../Assets/images/Travelo.png")}
-          style={styles.headerLogo}
-        />
+        <Image source={images.Travelo} style={styles.headerLogo} />
       </View>
       <View style={styles.feed}>
         <Feed />

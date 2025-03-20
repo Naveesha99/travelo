@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   Dimensions,
@@ -10,6 +9,7 @@ import React from "react";
 import Map from "../Components/Map";
 import { TextInput } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window");
 
@@ -45,11 +45,15 @@ const locations = [
 ];
 
 const Explore = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <View style={styles.addLocation}>
+      <TouchableOpacity
+        style={styles.addLocation}
+        onPress={() => navigation.navigate("AddLocation")}
+      >
         <Feather name="plus" size={24} color="white" />
-      </View>
+      </TouchableOpacity>
       <View style={styles.searchBar}>
         <TextInput
           style={styles.input}

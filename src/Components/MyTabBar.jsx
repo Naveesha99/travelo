@@ -1,6 +1,8 @@
+import React from "react";
 import { View } from "react-native";
-import { useLinkBuilder, useTheme } from "@react-navigation/native";
-import { Text, PlatformPressable } from "@react-navigation/elements";
+import { useLinkBuilder } from "@react-navigation/native";
+import { PlatformPressable } from "@react-navigation/elements";
+import PropTypes from "prop-types";
 
 function MyTabBar({ state, descriptors, navigation }) {
   const { buildHref } = useLinkBuilder();
@@ -22,13 +24,6 @@ function MyTabBar({ state, descriptors, navigation }) {
     >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
-
         const isFocused = state.index === index;
 
         const onPress = () => {
@@ -74,20 +69,24 @@ function MyTabBar({ state, descriptors, navigation }) {
             }}
           >
             {icon}
-            {/* <Text
-              style={{
-                color: isFocused ? "#07dfd4" : "#94cbeb",
-                fontSize: 12,
-                marginTop: 4,
-              }}
-            >
-              {label}
-            </Text> */}
           </PlatformPressable>
         );
       })}
     </View>
   );
 }
+
+// PropTypes validation
+MyTabBar.propTypes = {
+  state: PropTypes.shape({
+    index: PropTypes.number.isRequired,
+    routes: PropTypes.array.isRequired,
+  }).isRequired,
+  descriptors: PropTypes.object.isRequired,
+  navigation: PropTypes.shape({
+    emit: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default MyTabBar;

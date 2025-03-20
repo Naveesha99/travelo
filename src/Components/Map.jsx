@@ -1,6 +1,7 @@
 import React from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { StyleSheet, View, Dimensions, Text } from "react-native";
+import PropTypes from "prop-types";
 
 const { width, height } = Dimensions.get("window");
 
@@ -41,6 +42,12 @@ const Map = ({ title, latitude, longitude }) => {
 };
 
 export default Map;
+
+Map.propTypes = {
+  title: PropTypes.string.isRequired,
+  latitude: PropTypes.number.isRequired,
+  longitude: PropTypes.number.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
