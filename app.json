@@ -19,10 +19,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/Assets/images/Travelo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.naveesha99.travelo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "79250581-5711-47ea-88e5-514eb85cbd7b"
+      }
     }
   }
 }

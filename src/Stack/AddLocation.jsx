@@ -143,6 +143,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 20,
     padding: 10,
+    backgroundColor: "#fff",
   },
   mapContainer: {
     width: width * 0.95,
