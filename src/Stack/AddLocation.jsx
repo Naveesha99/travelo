@@ -13,6 +13,7 @@ import * as Location from "expo-location";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -41,10 +42,11 @@ const AddLocation = () => {
     })();
   }, []);
 
+  const navigate = useNavigation();
   return (
-    <>
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.formContainer}>
           {/* Add TextInput for location name */}
           <Text style={styles.label}>Location name</Text>
           <TextInput
@@ -106,7 +108,7 @@ const AddLocation = () => {
             )}
             <TouchableOpacity
               style={styles.editLocation}
-              onPress={() => alert("Edit location")}
+              onPress={() => navigate.navigate("EditMapLocation")}
             >
               <MaterialIcons name="edit-location-alt" size={24} color="black" />
               <Text style={styles.editLocationText}>Edit map location</Text>
@@ -125,24 +127,37 @@ const AddLocation = () => {
               />
             </TouchableOpacity>
           </View>
-        </ScrollView>
-      </View>
-    </>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.cancelButton}>
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.saveButton}>
+              <Text style={styles.saveButtonText}>Save</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
 export default AddLocation;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    width: width,
+  },
   scrollContent: {
     paddingBottom: 70,
   },
-  container: {
+  formContainer: {
     flex: 1,
     width: width,
     alignSelf: "center",
     padding: 10,
-    backgroundColor: "#fff",
   },
   mapContainer: {
     width: width * 0.95,
@@ -195,13 +210,33 @@ const styles = StyleSheet.create({
     color: "#000",
     marginLeft: 5,
   },
-  saveButton: {
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  cancelButton: {
     marginTop: 20,
-    backgroundColor: "#4CAF50",
+    backgroundColor: "#888",
     paddingVertical: 12,
-    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    width: "48%",
+    borderRadius: 30,
+  },
+  cancelButtonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  saveButton: {
+    marginTop: 20,
+    backgroundColor: "#07dfd4",
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "48%",
+    borderRadius: 30,
   },
   saveButtonText: {
     color: "#fff",

@@ -14,6 +14,7 @@ import Create from "./src/BottomTab/Create";
 
 import Detail from "./src/Stack/Detail";
 import AddLocation from "./src/Stack/AddLocation";
+import EditMapLocation from "./src/Stack/EditMapLocation";
 import MyTabBar from "./src/Components/MyTabBar";
 
 const Tab = createBottomTabNavigator();
@@ -35,6 +36,13 @@ function ExploreStack() {
         component={AddLocation}
         options={{
           headerTitle: "Add Location",
+        }}
+      />
+      <Stack.Screen
+        name="EditMapLocation"
+        component={EditMapLocation}
+        options={{
+          headerTitle: "Edit Map Location",
         }}
       />
     </Stack.Navigator>
