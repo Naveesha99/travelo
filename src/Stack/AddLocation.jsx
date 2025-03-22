@@ -43,8 +43,8 @@ const AddLocation = () => {
 
   return (
     <>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
           {/* Add TextInput for location name */}
           <Text style={styles.label}>Location name</Text>
           <TextInput
@@ -125,8 +125,8 @@ const AddLocation = () => {
               />
             </TouchableOpacity>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </>
   );
 };
@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: width,
     alignSelf: "center",
-    marginBottom: 20,
     padding: 10,
     backgroundColor: "#fff",
   },
