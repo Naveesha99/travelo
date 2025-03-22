@@ -1,14 +1,36 @@
-import { View, Dimensions, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import {
+  View,
+  Dimensions,
+  StyleSheet,
+  ActivityIndicator,
+  Text,
+} from "react-native";
+import React, { useEffect, useState } from "react";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import * as Location from "expo-location";
 
 const { width, height } = Dimensions.get("window");
 
 const EditMapLocation = () => {
-  const [selectedLocation, setSelectedLocation] = useState({
-    latitude: 6.0535,
-    longitude: 80.2209,
-  });
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Set current location
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        setLoading(false);
+        return;
+      }
+
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setSelectedLocation(currentLocation.coords);
+      setLoading(false);
+    })();
+  }, []);
 
   // Function to handle marker drag or map press
   const handleLocationChange = (event) => {
@@ -19,24 +41,34 @@ const EditMapLocation = () => {
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
-        <MapView
-          style={styles.map}
-          provider={PROVIDER_GOOGLE}
-          initialRegion={{
-            latitude: selectedLocation.latitude,
-            longitude: selectedLocation.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-          onPress={handleLocationChange} // Handles tap on the map
-        >
-          <Marker
-            coordinate={selectedLocation}
-            title={`Latitude: ${selectedLocation.latitude}, Longitude: ${selectedLocation.longitude}`}
-            draggable
-            onDragEnd={handleLocationChange}
-          />
-        </MapView>
+        {loading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : errorMsg ? (
+          <Text>{errorMsg}</Text>
+        ) : selectedLocation ? (
+          <MapView
+            style={styles.map}
+            provider={PROVIDER_GOOGLE}
+            initialRegion={{
+              latitude: selectedLocation.latitude,
+              longitude: selectedLocation.longitude,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            onPress={handleLocationChange}
+          >
+            <Marker
+              coordinate={selectedLocation}
+              title={`Latitude: ${selectedLocation.latitude.toFixed(
+                4
+              )}, Longitude: ${selectedLocation.longitude.toFixed(4)}`}
+              draggable
+              onDragEnd={handleLocationChange}
+            />
+          </MapView>
+        ) : (
+          <Text>Fetching location...</Text>
+        )}
       </View>
     </View>
   );
