@@ -5,6 +5,10 @@ import post1 from "./post1.jpg";
 import post2 from "./post2.jpg";
 import post3 from "./post3.jpg";
 import Travelo from "./Travelo.png";
+import hikkaduwa from "./hikkaduwa.jpg";
+import kandy from "./kandy.jpg";
+import jaffna from "./jaffna.jpg";
+import nuwaraEliya from "./nuwaraEliya.jpg";
 
 export default {
   profile1,
@@ -14,4 +18,8 @@ export default {
   post2,
   post3,
   Travelo,
+  hikkaduwa,
+  kandy,
+  jaffna,
+  nuwaraEliya,
 };

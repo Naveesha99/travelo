@@ -10,12 +10,13 @@ import { MaterialCommunityIcons } from "react-native-vector-icons";
 import Home from "./src/BottomTab/Home";
 import Profile from "./src/BottomTab/Profile";
 import Explore from "./src/BottomTab/Explore";
-import Create from "./src/BottomTab/Create";
+import Trips from "./src/BottomTab/Trips";
 
 import Detail from "./src/Stack/Detail";
 import AddLocation from "./src/Stack/AddLocation";
 import EditMapLocation from "./src/Stack/EditMapLocation";
 import MyTabBar from "./src/Components/MyTabBar";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -92,11 +93,11 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Create"
-        component={Create}
+        name="Trips"
+        component={Trips}
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="plus" color={color} size={24} />
+            <MaterialIcons name="travel-explore" size={24} color={color} />
           ),
         }}
       />
