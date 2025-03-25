@@ -1,16 +1,37 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
+import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import images from "../Assets/images";
+import PropTypes from "prop-types";
 
-const TripCard = () => {
+const { width } = Dimensions.get("window");
+const TripCard = ({
+  title,
+  destination,
+  image,
+  duration,
+  distance,
+  food,
+  fuel,
+  nightStay,
+  hashTags = [],
+}) => {
+  const [favorite, setFavorite] = useState(false);
   return (
     <View style={styles.cardContainer}>
-      <View style={styles.cardTitle}>
-        <Image source={images.post1} style={styles.image} />
+      <View style={styles.imageContainer}>
+        <Image source={image} style={styles.image} />
+        <View style={styles.overlay} />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Hill Climb</Text>
-          <Text style={styles.destination}>Matara to Ella Rock</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.destination}>{destination}</Text>
           <View style={styles.subTitleContainer}>
             <View style={{ flexDirection: "row", gap: 5 }}>
               <MaterialCommunityIcons
@@ -19,7 +40,7 @@ const TripCard = () => {
                 color="#fff"
                 opacity={0.7}
               />
-              <Text style={styles.subTitle}>6h 3min</Text>
+              <Text style={styles.subTitle}>{duration}</Text>
             </View>
             <View style={{ flexDirection: "row", gap: 5 }}>
               <MaterialCommunityIcons
@@ -28,7 +49,7 @@ const TripCard = () => {
                 color="#fff"
                 opacity={0.7}
               />
-              <Text style={styles.subTitle}>230km</Text>
+              <Text style={styles.subTitle}>{distance}</Text>
             </View>
           </View>
         </View>
@@ -36,69 +57,92 @@ const TripCard = () => {
       <View style={styles.cardContent}>
         <View style={styles.tripDetails}>
           <Text>
-            🍔 <Text style={styles.highlight}>2</Text> Food{" "}
-          </Text>
-          <Text>|</Text>
-          <Text>
-            ⛽ <Text style={styles.highlight}>1</Text> Fuel{" "}
-          </Text>
-          <Text>|</Text>
-          <Text>
-            🏨 <Text style={styles.highlight}>1</Text> Night Stay
+            🍔 <Text style={styles.highlight}>{food}</Text> Food{"   |   "}⛽{" "}
+            <Text style={styles.highlight}>{fuel}</Text> Fuel{"   |   "}
+            🏨 <Text style={styles.highlight}>{nightStay}</Text> Night Stay
           </Text>
         </View>
-        <View style={styles.specialNote}>
-          <Text style={styles.note}>
-            <Text style={{ fontWeight: "bold" }}>Special Note: </Text>This is a
-            long trip. Make sure you have enough fuel
-          </Text>
-        </View>
+
         <View style={styles.tags}>
-          <Text style={styles.hashTags}>#hillclimb</Text>
-          <Text style={styles.hashTags}>#matara</Text>
-          <Text style={styles.hashTags}>#ellarock</Text>
+          {hashTags.map((tag, index) => (
+            <Text key={index} style={styles.hashTags}>
+              {tag}
+            </Text>
+          ))}
         </View>
-        <View style={styles.profile}>
-          <Image source={images.profile1} style={{ width: 25, height: 25 }} />
-          <Text>John Doe</Text>
+        <View style={styles.bottomContainer}>
+          <TouchableOpacity onPress={() => setFavorite(!favorite)}>
+            {!favorite ? (
+              <FontAwesome name="bookmark-o" size={24} color="black" />
+            ) : (
+              <FontAwesome name="bookmark" size={24} color="black" />
+            )}
+          </TouchableOpacity>
+          <View style={styles.profile}>
+            {images.profile1 && (
+              <Image source={images.profile1} style={styles.profileImage} />
+            )}
+            <Text style={styles.profileName}>John Doe</Text>
+          </View>
         </View>
       </View>
     </View>
   );
 };
 
+TripCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  destination: PropTypes.string.isRequired,
+  image: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.shape({
+      uri: PropTypes.string.isRequired,
+    }),
+  ]).isRequired,
+  duration: PropTypes.string.isRequired,
+  distance: PropTypes.string.isRequired,
+  food: PropTypes.number.isRequired,
+  fuel: PropTypes.number.isRequired,
+  nightStay: PropTypes.number.isRequired,
+  hashTags: PropTypes.arrayOf(PropTypes.string),
+};
+
 export default TripCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: "90%",
+    width: width * 0.85,
     height: 200,
     backgroundColor: "#f9f9f9",
     borderRadius: 10,
     margin: 10,
     position: "relative",
   },
-  cardTitle: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    flexDirection: "column",
-    gap: 8,
+  imageContainer: {
+    position: "relative",
+    width: "100%",
+    height: 80,
   },
   image: {
+    width: "100%",
+    height: "100%",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  overlay: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    width: "100%",
-    height: 80,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
   titleContainer: {
     position: "absolute",
-    top: 3,
-    left: 3,
+    top: 0,
+    left: 0,
     padding: 10,
   },
   title: {
@@ -109,7 +153,7 @@ const styles = StyleSheet.create({
   destination: {
     fontSize: 16,
     color: "#fff",
-    fontWeight: "semi-bold",
+    fontWeight: "600",
   },
   subTitleContainer: {
     flexDirection: "row",
@@ -134,14 +178,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   highlight: {
-    color: "#07dfd4",
+    color: "black",
     fontWeight: "bold",
-  },
-  specialNote: {
-    marginTop: 10,
-  },
-  note: {
-    fontSize: 14,
   },
   tags: {
     flexDirection: "row",
@@ -149,7 +187,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     marginTop: 10,
-    flexWrap: "wrap", // This allows the tags to wrap into the next line if needed
   },
   hashTags: {
     backgroundColor: "lightgray",
@@ -158,15 +195,28 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     fontSize: 12,
   },
+  bottomContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+  },
   profile: {
-    position: "absolute",
-    bottom: 5,
-    right: 5,
     flexDirection: "row",
     alignItems: "center",
     gap: 5,
     height: 30,
     width: 100,
     paddingLeft: 10,
+  },
+  profileImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },
+  profileName: {
+    fontSize: 14,
+    marginRight: 5,
   },
 });
