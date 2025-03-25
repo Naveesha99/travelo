@@ -1,15 +1,16 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import TripCard from "../Components/TripCard";
 
-const Create = () => {
+const Trips = () => {
   return (
     <View style={styles.container}>
-      <Text>Create</Text>
+      <TripCard />
     </View>
   );
 };
 
-export default Create;
+export default Trips;
 
 const styles = StyleSheet.create({
   container: {
