@@ -15,13 +15,28 @@ import Trips from "./src/BottomTab/Trips";
 import Detail from "./src/Stack/Detail";
 import AddLocation from "./src/Stack/AddLocation";
 import EditMapLocation from "./src/Stack/EditMapLocation";
+import CreateNewTrip from "./src/Stack/CreateNewTrip";
 import MyTabBar from "./src/Components/MyTabBar";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-// Create a separate stack navigator for the Explore screen
+function HomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="HomeScreen"
+        component={Home}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="Detail" component={Detail} />
+    </Stack.Navigator>
+  );
+}
+
 function ExploreStack() {
   return (
     <Stack.Navigator>
@@ -50,17 +65,23 @@ function ExploreStack() {
   );
 }
 
-function HomeStack() {
+function TripStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="HomeScreen"
-        component={Home}
+        name="Trips"
+        component={Trips}
         options={{
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Detail" component={Detail} />
+      <Stack.Screen
+        name="CreateNewTrip"
+        component={CreateNewTrip}
+        options={{
+          headerTitle: "Create New Trip",
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -94,7 +115,7 @@ function TabNavigator() {
       />
       <Tab.Screen
         name="Trips"
-        component={Trips}
+        component={TripStack}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="travel-explore" size={24} color={color} />
