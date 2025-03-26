@@ -4,6 +4,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Text,
 } from "react-native";
 import React from "react";
 import Map from "../Components/Map";
@@ -52,6 +53,7 @@ const Explore = () => {
         style={styles.addLocation}
         onPress={() => navigation.navigate("AddLocation")}
       >
+        <Text style={styles.newLocationText}>New Place</Text>
         <Feather name="plus" size={24} color="white" />
       </TouchableOpacity>
       <View style={styles.searchBar}>
@@ -115,14 +117,21 @@ const styles = StyleSheet.create({
   },
   addLocation: {
     position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 15,
+    paddingHorizontal: 15,
     bottom: 90,
     right: 20,
     backgroundColor: "#343434",
-    width: 50,
     height: 50,
     borderRadius: 25,
     alignItems: "center",
     justifyContent: "center",
     zIndex: 10,
+  },
+  newLocationText: {
+    color: "white",
+    fontSize: 14,
   },
 });
