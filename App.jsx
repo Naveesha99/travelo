@@ -69,7 +69,7 @@ function TripStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Trips"
+        name="TripScreen"
         component={Trips}
         options={{
           headerShown: false,
