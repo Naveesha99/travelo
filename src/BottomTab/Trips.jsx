@@ -1,7 +1,16 @@
-import { View, StyleSheet, FlatList, Text, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import TripCard from "../Components/TripCard";
 import images from "../Assets/images";
+import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 const sampleTrips = [
   {
     id: 1,
@@ -42,8 +51,16 @@ const sampleTrips = [
 ];
 
 const Trips = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <TouchableOpacity
+        style={styles.addNewTrip}
+        onPress={() => navigation.navigate("CreateNewTrip")}
+      >
+        <Text style={styles.newTripText}>New Trip</Text>
+        <Feather name="plus" size={24} color="white" />
+      </TouchableOpacity>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.exploreTrips}>
           <Text style={styles.title}>Explore Trips</Text>
@@ -119,5 +136,23 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 60,
     width: "100%",
+  },
+  addNewTrip: {
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 15,
+    paddingHorizontal: 15,
+    bottom: 90,
+    right: 20,
+    backgroundColor: "#343434",
+    height: 50,
+    borderRadius: 25,
+    alignItems: "center",
+    zIndex: 10,
+  },
+  newTripText: {
+    color: "white",
+    fontSize: 14,
   },
 });
