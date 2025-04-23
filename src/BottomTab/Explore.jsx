@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     alignItems: "center",
-    justifyContent: "center",
     zIndex: 10,
   },
   newLocationText: {
